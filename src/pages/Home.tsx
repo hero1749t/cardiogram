@@ -37,7 +37,7 @@ const Home = () => {
           <div className="flex items-center justify-between mb-4">
             <div>
               <p className="text-muted-foreground text-sm">Welcome back</p>
-              <h1 className="text-2xl font-bold text-foreground">ECG Monitor</h1>
+              <h1 className="text-2xl font-bold text-foreground">Reyji Rizki</h1>
             </div>
             <div className="text-right">
               <p className="text-xs text-muted-foreground">Last ECG</p>

@@ -3,9 +3,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/components/auth/AuthProvider";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import Auth from "./pages/Auth";
 import Home from "./pages/Home";
 import ECGMonitoring from "./pages/ECGMonitoring";
 import ECGTestWorkflow from "./pages/ECGTestWorkflow";
@@ -22,43 +19,16 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/" element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            } />
-            <Route path="/ecg" element={
-              <ProtectedRoute>
-                <ECGMonitoring />
-              </ProtectedRoute>
-            } />
-            <Route path="/ecg-test" element={
-              <ProtectedRoute>
-                <ECGTestWorkflow />
-              </ProtectedRoute>
-            } />
-            <Route path="/device-connection" element={
-              <ProtectedRoute>
-                <DeviceConnection />
-              </ProtectedRoute>
-            } />
-            <Route path="/reports" element={
-              <ProtectedRoute>
-                <Reports />
-              </ProtectedRoute>
-            } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            } />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/ecg" element={<ECGMonitoring />} />
+          <Route path="/ecg-test" element={<ECGTestWorkflow />} />
+          <Route path="/device-connection" element={<DeviceConnection />} />
+          <Route path="/reports" element={<Reports />} />
+          <Route path="/profile" element={<Profile />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
