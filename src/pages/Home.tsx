@@ -2,192 +2,156 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { 
   Activity, 
-  Bluetooth, 
-  BluetoothConnected, 
   Heart, 
   Info, 
   Play,
-  Battery,
-  Wifi,
-  AlertTriangle
+  FileText,
+  Share,
+  Zap,
+  TrendingUp
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import Header from "@/components/layout/Header";
 import BottomNavigation from "@/components/layout/BottomNavigation";
+import HealthIndicators from "@/components/health/HealthIndicators";
+import AdvancedDeviceStatus from "@/components/device/AdvancedDeviceStatus";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [isDeviceConnected, setIsDeviceConnected] = useState(false);
-  const [deviceBattery, setDeviceBattery] = useState(85);
+  const [lastEcgSummary] = useState({
+    bpm: 72,
+    duration: "30s",
+    status: "Normal",
+    timestamp: "2 hours ago"
+  });
 
   return (
-    <div className="min-h-screen bg-gradient-subtle pb-20">
-      {/* Header */}
-      <div className="px-6 pt-8 pb-6">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <p className="text-muted-foreground text-sm">Welcome back</p>
-            <h1 className="text-2xl font-bold text-foreground">Reyji Rizki</h1>
+    <div className="min-h-screen gradient-subtle pb-20">
+      <Header />
+      
+      <div className="px-4 space-y-6 pt-4">
+        {/* Welcome Section with Last ECG Summary */}
+        <div className="glass-card rounded-2xl p-6 border-white/20">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p className="text-muted-foreground text-sm">Welcome back</p>
+              <h1 className="text-2xl font-bold text-foreground">Reyji Rizki</h1>
+            </div>
+            <div className="text-right">
+              <p className="text-xs text-muted-foreground">Last ECG</p>
+              <p className="text-sm font-semibold text-primary">{lastEcgSummary.bpm} BPM</p>
+              <p className="text-xs text-muted-foreground">{lastEcgSummary.timestamp}</p>
+            </div>
           </div>
-          <Avatar className="h-12 w-12">
-            <AvatarFallback className="bg-primary text-primary-foreground text-lg font-semibold">
-              RR
-            </AvatarFallback>
-          </Avatar>
+          
+          <Badge variant="outline" className="border-emerald-500/50 text-emerald-600 bg-emerald-50 dark:bg-emerald-900/20">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full mr-2 animate-pulse" />
+            {lastEcgSummary.status} • {lastEcgSummary.duration}
+          </Badge>
         </div>
 
-        {/* How do you feel? */}
-        <div className="bg-card/80 backdrop-blur-sm rounded-2xl p-4 mb-6 border border-border/50">
-          <p className="text-muted-foreground mb-3">How do you feel?</p>
-          <div className="flex gap-3">
-            <Button variant="outline" size="sm" className="flex-1 h-auto py-3">
-              <div className="text-center">
-                <Heart className="h-5 w-5 mx-auto mb-1 text-primary" />
-                <span className="text-xs">Great</span>
-              </div>
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1 h-auto py-3">
-              <div className="text-center">
-                <Activity className="h-5 w-5 mx-auto mb-1 text-orange-500" />
-                <span className="text-xs">Normal</span>
-              </div>
-            </Button>
-            <Button variant="outline" size="sm" className="flex-1 h-auto py-3">
-              <div className="text-center">
-                <AlertTriangle className="h-5 w-5 mx-auto mb-1 text-red-500" />
-                <span className="text-xs">Unwell</span>
-              </div>
-            </Button>
-          </div>
+        {/* Health Indicators */}
+        <div>
+          <p className="text-muted-foreground mb-3 text-sm font-medium">Health Indicators</p>
+          <HealthIndicators />
         </div>
-      </div>
 
-      <div className="px-6 space-y-6">
-        {/* Device Status Card */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center justify-between text-lg">
-              <span className="flex items-center gap-2">
-                <Wifi className="h-5 w-5" />
-                Device Status
-              </span>
-              <Badge 
-                variant={isDeviceConnected ? "default" : "secondary"}
-                className={isDeviceConnected ? "bg-green-500" : ""}
-              >
-                {isDeviceConnected ? (
-                  <BluetoothConnected className="h-3 w-3 mr-1" />
-                ) : (
-                  <Bluetooth className="h-3 w-3 mr-1" />
-                )}
-                {isDeviceConnected ? "Connected" : "Not Connected"}
-              </Badge>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {isDeviceConnected ? (
-              <>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">XIAO ESP32-C6</span>
-                  <div className="flex items-center gap-2">
-                    <Battery className="h-4 w-4" />
-                    <span className="text-sm font-medium">{deviceBattery}%</span>
-                  </div>
-                </div>
-                <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
-                  <p className="text-sm text-green-700 dark:text-green-300">
-                    Heart BioAmp Candy device ready for ECG monitoring
-                  </p>
-                </div>
-              </>
-            ) : (
-              <div className="bg-orange-50 dark:bg-orange-900/20 p-3 rounded-lg">
-                <p className="text-sm text-orange-700 dark:text-orange-300 mb-2">
-                  Please connect your ECG device to start monitoring
-                </p>
-                <Button 
-                  size="sm" 
-                  onClick={() => navigate("/device-connection")}
-                  className="w-full"
-                >
-                  <Bluetooth className="h-4 w-4 mr-2" />
-                  Connect Device
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        {/* Advanced Device Status */}
+        <AdvancedDeviceStatus />
 
-        {/* Quick Actions */}
+        {/* Large Start ECG Test Button */}
+        <Button 
+          onClick={() => navigate("/ecg-test")}
+          className="w-full h-16 gradient-primary hover:opacity-90 text-white border-0 rounded-2xl text-lg font-semibold shadow-glow"
+        >
+          <div className="flex items-center gap-3">
+            <div className="bg-white/20 rounded-full p-2">
+              <Play className="h-6 w-6" />
+            </div>
+            <div className="text-left">
+              <div>Start ECG Test</div>
+              <div className="text-xs opacity-80">Quick 30 second scan</div>
+            </div>
+          </div>
+        </Button>
+
+        {/* Quick Shortcuts */}
         <div className="grid grid-cols-2 gap-4">
-          <Card className="border-border/50 bg-gradient-primary/10 hover:bg-gradient-primary/20 transition-colors cursor-pointer"
-                onClick={() => navigate("/ecg-test")}>
-            <CardContent className="p-6 text-center">
-              <div className="bg-primary/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                <Play className="h-6 w-6 text-primary" />
-              </div>
-              <h3 className="font-semibold mb-1">Start ECG Test</h3>
-              <p className="text-xs text-muted-foreground">Quick 30s test</p>
-            </CardContent>
-          </Card>
-
-          <Card className="border-border/50 bg-card/80 hover:bg-card transition-colors cursor-pointer"
-                onClick={() => navigate("/reports")}>
-            <CardContent className="p-6 text-center">
-              <div className="bg-secondary/20 rounded-full w-12 h-12 flex items-center justify-center mx-auto mb-3">
-                <Activity className="h-6 w-6 text-secondary-foreground" />
-              </div>
-              <h3 className="font-semibold mb-1">View Reports</h3>
-              <p className="text-xs text-muted-foreground">Past results</p>
-            </CardContent>
-          </Card>
+          <Button 
+            variant="outline"
+            onClick={() => navigate("/reports")}
+            className="h-20 flex-col gap-2 glass-card border-white/20 hover:border-white/30 bg-white/5 hover:bg-white/10"
+          >
+            <div className="bg-blue-500/20 rounded-full p-2">
+              <FileText className="h-5 w-5 text-blue-500" />
+            </div>
+            <span className="text-sm font-medium">View Reports</span>
+          </Button>
+          
+          <Button 
+            variant="outline"
+            className="h-20 flex-col gap-2 glass-card border-white/20 hover:border-white/30 bg-white/5 hover:bg-white/10"
+          >
+            <div className="bg-purple-500/20 rounded-full p-2">
+              <Share className="h-5 w-5 text-purple-500" />
+            </div>
+            <span className="text-sm font-medium">Share with Doctor</span>
+          </Button>
         </div>
 
-        {/* How to Use Device */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+        {/* Health Tips */}
+        <Card className="glass-card border-white/20">
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Info className="h-5 w-5" />
-              How to Use Device
+              <Zap className="h-5 w-5 text-yellow-500" />
+              Today's Health Tip
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="space-y-2">
+          <CardContent>
+            <div className="bg-gradient-subtle rounded-lg p-4 border border-white/10">
               <div className="flex items-start gap-3">
-                <div className="bg-primary/20 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-primary">1</span>
+                <div className="bg-yellow-500/20 rounded-full p-2 flex-shrink-0">
+                  <TrendingUp className="h-4 w-4 text-yellow-500" />
                 </div>
-                <p className="text-sm">Place electrodes on clean, dry skin</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-primary/20 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-primary">2</span>
+                <div>
+                  <p className="text-sm font-medium mb-1">Stay Hydrated for Heart Health</p>
+                  <p className="text-xs text-muted-foreground">
+                    Drinking 8-10 glasses of water daily helps maintain optimal blood pressure and heart function
+                  </p>
                 </div>
-                <p className="text-sm">Sit still and breathe normally</p>
-              </div>
-              <div className="flex items-start gap-3">
-                <div className="bg-primary/20 rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs font-bold text-primary">3</span>
-                </div>
-                <p className="text-sm">Press start when ready</p>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Health Tips */}
-        <Card className="border-border/50 bg-gradient-secondary/10">
+        {/* How to Use Device - Compact Version */}
+        <Card className="glass-card border-white/20">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg">💡 Health Tips</CardTitle>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Info className="h-5 w-5 text-primary" />
+              Quick Setup Guide
+            </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="bg-card/60 rounded-lg p-3">
-              <p className="text-sm font-medium mb-1">Stay Hydrated</p>
-              <p className="text-xs text-muted-foreground">
-                Drink 8-10 glasses of water daily for optimal heart health
-              </p>
+          <CardContent className="space-y-2">
+            <div className="flex items-center gap-3 text-sm">
+              <div className="bg-primary/20 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-bold text-primary">1</span>
+              </div>
+              <p>Place electrodes on clean skin</p>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <div className="bg-primary/20 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-bold text-primary">2</span>
+              </div>
+              <p>Sit still and breathe normally</p>
+            </div>
+            <div className="flex items-center gap-3 text-sm">
+              <div className="bg-primary/20 rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
+                <span className="text-xs font-bold text-primary">3</span>
+              </div>
+              <p>Press start when ready</p>
             </div>
           </CardContent>
         </Card>

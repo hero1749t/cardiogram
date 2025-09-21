@@ -60,6 +60,10 @@ export default {
           alert: "hsl(var(--ecg-alert))",
           normal: "hsl(var(--ecg-normal))",
         },
+        glass: {
+          bg: "var(--glass-bg)",
+          border: "var(--glass-border)",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
@@ -93,10 +97,46 @@ export default {
             height: "0",
           },
         },
+        "pulse-blue": {
+          "0%, 100%": {
+            opacity: "1",
+            transform: "scale(1)",
+          },
+          "50%": {
+            opacity: "0.7",
+            transform: "scale(1.05)",
+          },
+        },
+        "ecg-heartbeat": {
+          "0%, 50%, 100%": {
+            transform: "scaleY(1)",
+          },
+          "25%": {
+            transform: "scaleY(1.5)",
+          },
+          "75%": {
+            transform: "scaleY(0.8)",
+          },
+        },
+        "health-pulse": {
+          "0%, 100%": {
+            boxShadow: "0 0 5px currentColor",
+          },
+          "50%": {
+            boxShadow: "0 0 20px currentColor, 0 0 30px currentColor",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-blue": "pulse-blue 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "ecg-heartbeat": "ecg-heartbeat 1.5s ease-in-out infinite",
+        "health-pulse": "health-pulse 3s ease-in-out infinite",
+      },
+      boxShadow: {
+        "glow": "0 0 20px hsl(var(--primary) / 0.3)",
+        "soft": "0 8px 32px rgba(0, 0, 0, 0.12)",
       },
     },
   },
