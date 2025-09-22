@@ -3,79 +3,85 @@
 @tailwind utilities;
 
 /* ECG Medical Monitoring Design System
-All colors MUST be HSL for consistency.
+Advanced CSS with stunning gradients, animations & glassmorphism
 Medical-grade UI with professional styling.
 */
 
 @layer base {
   :root {
-    /* Base colors - clean medical whites and grays */
-    --background: 210 20% 98%;
-    --foreground: 222 15% 15%;
+    /* Base colors - advanced medical background */
+    --background: linear-gradient(135deg, hsl(220 25% 5%), hsl(240 30% 8%));
+    --foreground: 210 100% 98%;
 
-    /* Card system - subtle depth for medical panels */
-    --card: 0 0% 100%;
-    --card-foreground: 222 15% 15%;
+    /* Card system - advanced glassmorphism */
+    --card: rgba(255, 255, 255, 0.05);
+    --card-foreground: 210 100% 98%;
 
     /* Popover system */
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 15% 15%;
+    --popover: rgba(255, 255, 255, 0.08);
+    --popover-foreground: 210 100% 98%;
 
-    /* Medical primary - professional teal/blue */
-    --primary: 195 84% 45%;
-    --primary-foreground: 0 0% 100%;
-    --primary-light: 195 84% 55%;
-    --primary-dark: 195 84% 35%;
+    /* Medical primary - electric cyan */
+    --primary: 195 100% 60%;
+    --primary-foreground: 220 25% 5%;
+    --primary-light: 195 100% 70%;
+    --primary-dark: 195 100% 45%;
 
-    /* Secondary - soft medical gray */
-    --secondary: 210 15% 95%;
-    --secondary-foreground: 222 15% 25%;
+    /* Secondary - luminous purple */
+    --secondary: 260 100% 70%;
+    --secondary-foreground: 220 25% 5%;
 
     /* Muted tones for subtle elements */
-    --muted: 210 15% 96%;
-    --muted-foreground: 215 10% 50%;
+    --muted: rgba(255, 255, 255, 0.08);
+    --muted-foreground: 215 30% 70%;
 
-    /* Accent - medical green for success states */
-    --accent: 142 76% 45%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - neon green for success states */
+    --accent: 140 100% 60%;
+    --accent-foreground: 220 25% 5%;
 
     /* Medical alert colors */
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --destructive: 0 100% 65%;
+    --destructive-foreground: 220 25% 5%;
+    --warning: 45 100% 60%;
+    --warning-foreground: 220 25% 5%;
 
     /* Interface elements */
-    --border: 214 20% 88%;
-    --input: 214 20% 94%;
-    --ring: 195 84% 45%;
+    --border: rgba(255, 255, 255, 0.15);
+    --input: rgba(255, 255, 255, 0.08);
+    --ring: 195 100% 60%;
 
     /* ECG specific colors */
-    --ecg-line: 195 84% 45%;
-    --ecg-grid: 210 15% 85%;
-    --ecg-background: 218 20% 97%;
-    --ecg-alert: 0 75% 60%;
-    --ecg-normal: 142 76% 45%;
+    --ecg-line: 195 100% 60%;
+    --ecg-grid: rgba(255, 255, 255, 0.1);
+    --ecg-background: rgba(0, 0, 0, 0.3);
+    --ecg-alert: 0 100% 65%;
+    --ecg-normal: 140 100% 60%;
     
-    /* Healthcare gradients and glassmorphism */
-    --gradient-primary: linear-gradient(135deg, hsl(195 84% 45%), hsl(240 100% 60%));
-    --gradient-secondary: linear-gradient(135deg, hsl(240 100% 60%), hsl(280 100% 70%));
-    --gradient-subtle: linear-gradient(135deg, hsl(210 20% 98%), hsl(200 30% 96%));
-    --gradient-medical: linear-gradient(135deg, hsl(195 84% 45%), hsl(195 84% 35%));
-    --gradient-alert: linear-gradient(135deg, hsl(0 75% 60%), hsl(0 75% 50%));
-    --gradient-success: linear-gradient(135deg, hsl(142 76% 45%), hsl(142 76% 35%));
+    /* Advanced Healthcare gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(195 100% 60%) 0%, hsl(240 100% 70%) 50%, hsl(280 100% 65%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(260 100% 70%) 0%, hsl(280 100% 75%) 50%, hsl(300 100% 70%) 100%);
+    --gradient-subtle: linear-gradient(135deg, hsl(220 25% 5%) 0%, hsl(240 30% 8%) 50%, hsl(260 35% 6%) 100%);
+    --gradient-medical: linear-gradient(135deg, hsl(195 100% 60%) 0%, hsl(195 100% 45%) 100%);
+    --gradient-alert: linear-gradient(135deg, hsl(0 100% 65%) 0%, hsl(0 100% 50%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(140 100% 60%) 0%, hsl(140 100% 45%) 100%);
+    --gradient-cyber: linear-gradient(45deg, hsl(195 100% 60%) 0%, hsl(280 100% 65%) 25%, hsl(140 100% 60%) 50%, hsl(45 100% 60%) 75%, hsl(195 100% 60%) 100%);
+    --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
     
-    /* Glassmorphism effects */
-    --glass-bg: rgba(255, 255, 255, 0.1);
+    /* Advanced Glassmorphism effects */
+    --glass-bg: rgba(255, 255, 255, 0.08);
     --glass-border: rgba(255, 255, 255, 0.2);
     --glass-blur: blur(20px);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     
-    /* Shadows for medical UI depth */
-    --shadow-medical: 0 2px 8px -2px hsl(195 84% 45% / 0.1);
-    --shadow-card: 0 1px 3px 0 hsl(222 15% 15% / 0.1), 0 1px 2px 0 hsl(222 15% 15% / 0.06);
-    --shadow-elevated: 0 4px 12px -2px hsl(222 15% 15% / 0.1);
-    --shadow-glow: 0 0 20px hsl(195 84% 45% / 0.3);
-    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.12);
+    /* Advanced Shadows & Glows */
+    --shadow-medical: 0 4px 20px rgba(31, 150, 210, 0.3);
+    --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+    --shadow-elevated: 0 8px 40px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px hsl(195 100% 60% / 0.5);
+    --shadow-glow-purple: 0 0 40px hsl(280 100% 65% / 0.4);
+    --shadow-glow-green: 0 0 40px hsl(140 100% 60% / 0.4);
+    --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.2);
+    --shadow-neon: 0 0 20px currentColor, 0 0 40px currentColor, 0 0 60px currentColor;
 
     --radius: 0.75rem;
 
@@ -146,9 +152,20 @@ Medical-grade UI with professional styling.
 }
 
 @layer components {
-  /* Glassmorphism card */
+  /* Advanced Glassmorphism card */
   .glass-card {
-    @apply backdrop-blur-xl bg-white/10 border border-white/20 shadow-soft;
+    @apply backdrop-blur-xl border shadow-card;
+    background: var(--glass-bg);
+    border-color: var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+  
+  /* Cyber glass effect */
+  .glass-cyber {
+    @apply backdrop-blur-2xl border;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
   
   /* Animated pulse for connecting states */
@@ -163,8 +180,55 @@ Medical-grade UI with professional styling.
   
   /* Health indicator animations */
   .health-glow {
-    box-shadow: 0 0 20px currentColor;
     animation: health-pulse 3s ease-in-out infinite;
+  }
+  
+  /* Floating animation */
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Neon glow effect */
+  .neon-glow {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+  }
+  
+  /* Cyber text effect */
+  .cyber-text {
+    background: var(--gradient-cyber);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: cyber-flow 3s linear infinite;
+  }
+  
+  /* Interactive hover effects */
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .hover-lift:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 20px hsl(195 100% 60% / 0.3);
+  }
+  
+  /* Authentication form styling */
+  .auth-form {
+    @apply glass-cyber;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .auth-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 2s infinite;
   }
 }
 
@@ -179,6 +243,18 @@ Medical-grade UI with professional styling.
   
   .gradient-subtle {
     background: var(--gradient-subtle);
+  }
+  
+  .gradient-cyber {
+    background: var(--gradient-cyber);
+  }
+  
+  .gradient-glass {
+    background: var(--gradient-glass);
+  }
+  
+  .bg-main {
+    background: var(--background);
   }
 }
 
@@ -207,9 +283,70 @@ Medical-grade UI with professional styling.
 
 @keyframes health-pulse {
   0%, 100% {
-    box-shadow: 0 0 5px currentColor;
+    box-shadow: 0 0 10px currentColor;
   }
   50% {
-    box-shadow: 0 0 20px currentColor, 0 0 30px currentColor;
+    box-shadow: 0 0 30px currentColor, 0 0 50px currentColor;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes cyber-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
   }
 }

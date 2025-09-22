@@ -12,23 +12,28 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 glass-card border-t border-white/20 z-50">
-      <div className="flex items-center justify-around px-4 py-3 max-w-md mx-auto">
+    <div className="fixed bottom-0 left-0 right-0 glass-cyber border-t border-white/30 z-50">
+      <div className="flex items-center justify-around px-6 py-4 max-w-lg mx-auto">
         {navItems.map(({ icon: Icon, label, path }) => {
-          const isActive = location.pathname === path;
+          const isActive = location.pathname === path || (path === "/" && location.pathname === "/dashboard");
           
           return (
             <Link
               key={path}
               to={path}
-              className={`flex flex-col items-center p-3 rounded-2xl transition-all duration-300 ${
+              className={`flex flex-col items-center p-4 rounded-3xl transition-all duration-500 hover-lift ${
                 isActive 
-                  ? "gradient-primary text-white shadow-glow scale-105" 
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/10"
+                  ? "gradient-primary text-white neon-glow scale-110" 
+                  : "text-muted-foreground hover:text-foreground hover:bg-white/10 hover:scale-105"
               }`}
             >
-              <Icon size={20} className={isActive ? "drop-shadow-sm" : ""} />
-              <span className="text-xs mt-1 font-medium">{label}</span>
+              <Icon size={24} className={isActive ? "drop-shadow-lg animate-pulse" : ""} />
+              <span className={`text-xs mt-2 font-semibold ${isActive ? "text-white" : ""}`}>
+                {label}
+              </span>
+              {isActive && (
+                <div className="w-1 h-1 bg-white rounded-full mt-1 animate-pulse" />
+              )}
             </Link>
           );
         })}
