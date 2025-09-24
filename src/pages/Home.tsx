@@ -57,7 +57,7 @@ const Home = () => {
                 </div>
                 <h1 className="text-3xl font-bold cyber-text">{getUserName()}</h1>
               </div>
-              <div className="text-right glass-card p-4 rounded-2xl bg-black">
+              <div className="text-right glass-card p-4 rounded-2xl bg-gray-800">
                 <p className="text-xs text-muted-foreground">Last ECG Reading</p>
                 <p className="text-2xl font-bold neon-glow text-red-600">{lastEcgSummary.bpm}</p>
                 <p className="text-xs text-accent">BPM</p>
