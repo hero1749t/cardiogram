@@ -21,9 +21,9 @@ import {
 } from "lucide-react";
 
 const Auth = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("demo@test.com");
+  const [password, setPassword] = useState("demo123");
+  const [name, setName] = useState("Demo User");
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("signin");
   const { toast } = useToast();
