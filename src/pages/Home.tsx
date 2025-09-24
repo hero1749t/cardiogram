@@ -2,40 +2,28 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Activity, 
-  Heart, 
-  Info, 
-  Play,
-  FileText,
-  Share,
-  Zap,
-  TrendingUp,
-  Sparkles
-} from "lucide-react";
+import { Activity, Heart, Info, Play, FileText, Share, Zap, TrendingUp, Sparkles } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/components/auth/AuthProvider";
 import Header from "@/components/layout/Header";
 import BottomNavigation from "@/components/layout/BottomNavigation";
 import HealthIndicators from "@/components/health/HealthIndicators";
 import AdvancedDeviceStatus from "@/components/device/AdvancedDeviceStatus";
-
 const Home = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const {
+    user
+  } = useAuth();
   const [lastEcgSummary] = useState({
     bpm: 72,
     duration: "30s",
     status: "Normal",
     timestamp: "2 hours ago"
   });
-
   const getUserName = () => {
     return user?.user_metadata?.full_name || user?.email?.split('@')[0] || 'User';
   };
-
-  return (
-    <div className="min-h-screen bg-main pb-20 relative overflow-hidden">
+  return <div className="min-h-screen bg-main pb-20 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden opacity-20">
         <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-primary/30 blur-3xl animate-pulse" />
@@ -47,7 +35,7 @@ const Home = () => {
           <svg className="w-full h-full" viewBox="0 0 1000 1000">
             <defs>
               <pattern id="grid" width="50" height="50" patternUnits="userSpaceOnUse">
-                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1"/>
+                <path d="M 50 0 L 0 0 0 50" fill="none" stroke="currentColor" strokeWidth="1" />
               </pattern>
             </defs>
             <rect width="100%" height="100%" fill="url(#grid)" className="text-primary" />
@@ -58,7 +46,7 @@ const Home = () => {
       <div className="relative z-10">
         <Header />
         
-        <div className="px-4 space-y-6 pt-4">
+        <div className="px-4 space-y-6 pt-4 py-px">
           {/* Welcome Section with Last ECG Summary */}
           <div className="glass-cyber rounded-3xl p-6 border-white/20 hover-lift">
             <div className="flex items-center justify-between mb-6">
@@ -69,11 +57,11 @@ const Home = () => {
                 </div>
                 <h1 className="text-3xl font-bold cyber-text">{getUserName()}</h1>
               </div>
-              <div className="text-right glass-card p-4 rounded-2xl">
+              <div className="text-right glass-card p-4 rounded-2xl bg-black">
                 <p className="text-xs text-muted-foreground">Last ECG Reading</p>
-                <p className="text-2xl font-bold text-primary neon-glow">{lastEcgSummary.bpm}</p>
+                <p className="text-2xl font-bold neon-glow text-red-600">{lastEcgSummary.bpm}</p>
                 <p className="text-xs text-accent">BPM</p>
-                <p className="text-xs text-muted-foreground">{lastEcgSummary.timestamp}</p>
+                <p className="text-xs text-slate-50">{lastEcgSummary.timestamp}</p>
               </div>
             </div>
             
@@ -98,10 +86,7 @@ const Home = () => {
           <AdvancedDeviceStatus />
 
           {/* Large Start ECG Test Button */}
-          <Button 
-            onClick={() => navigate("/ecg-test")}
-            className="w-full h-20 gradient-primary hover:opacity-90 text-white border-0 rounded-3xl text-xl font-bold hover-lift relative overflow-hidden"
-          >
+          <Button onClick={() => navigate("/ecg-test")} className="w-full h-20 gradient-primary hover:opacity-90 text-white border-0 rounded-3xl text-xl font-bold hover-lift relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform translate-x-[-100%] animate-pulse" />
             <div className="flex items-center gap-4 relative z-10">
               <div className="bg-white/30 rounded-full p-3 neon-glow">
@@ -116,11 +101,7 @@ const Home = () => {
 
           {/* Quick Shortcuts */}
           <div className="grid grid-cols-2 gap-6">
-            <Button 
-              variant="outline"
-              onClick={() => navigate("/reports")}
-              className="h-24 flex-col gap-3 glass-cyber border-primary/30 hover:border-primary/50 hover-lift relative overflow-hidden"
-            >
+            <Button variant="outline" onClick={() => navigate("/reports")} className="h-24 flex-col gap-3 glass-cyber border-primary/30 hover:border-primary/50 hover-lift relative overflow-hidden">
               <div className="absolute inset-0 bg-primary/5 blur-xl" />
               <div className="bg-primary/30 rounded-full p-3 neon-glow relative z-10">
                 <FileText className="h-6 w-6 text-primary" />
@@ -128,10 +109,7 @@ const Home = () => {
               <span className="text-sm font-semibold text-foreground relative z-10">View Reports</span>
             </Button>
             
-            <Button 
-              variant="outline"
-              className="h-24 flex-col gap-3 glass-cyber border-secondary/30 hover:border-secondary/50 hover-lift relative overflow-hidden"
-            >
+            <Button variant="outline" className="h-24 flex-col gap-3 glass-cyber border-secondary/30 hover:border-secondary/50 hover-lift relative overflow-hidden">
               <div className="absolute inset-0 bg-secondary/5 blur-xl" />
               <div className="bg-secondary/30 rounded-full p-3 neon-glow relative z-10">
                 <Share className="h-6 w-6 text-secondary" />
@@ -203,8 +181,6 @@ const Home = () => {
       </div>
 
       <BottomNavigation />
-    </div>
-  );
+    </div>;
 };
-
 export default Home;
