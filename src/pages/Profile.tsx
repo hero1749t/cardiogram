@@ -61,30 +61,44 @@ const Profile = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-subtle pb-20">
+    <div className="min-h-screen bg-main relative overflow-hidden pb-20">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-primary/20 blur-xl animate-pulse" />
+        <div className="absolute top-40 right-20 w-32 h-32 rounded-full bg-secondary/20 blur-2xl animate-pulse delay-1000" />
+        <div className="absolute bottom-20 left-20 w-24 h-24 rounded-full bg-accent/20 blur-xl animate-pulse delay-2000" />
+        
+        {/* Floating profile elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full border-2 border-primary float-animation" />
+          <div className="absolute bottom-1/4 right-1/4 w-24 h-24 rounded-full border border-secondary float-animation" style={{ animationDelay: '1s' }} />
+        </div>
+      </div>
+
       {/* Header */}
-      <div className="px-6 pt-8 pb-6">
+      <div className="relative z-10 px-6 pt-8 pb-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Profile</h1>
+            <h1 className="text-3xl font-bold cyber-text">Profile</h1>
             <p className="text-muted-foreground text-sm">Manage your account and preferences</p>
           </div>
           <Button
             variant={isEditing ? "destructive" : "outline"}
             size="icon"
             onClick={isEditing ? handleCancel : () => setIsEditing(true)}
+            className="hover-lift"
           >
             {isEditing ? <X className="h-4 w-4" /> : <Edit className="h-4 w-4" />}
           </Button>
         </div>
       </div>
 
-      <div className="px-6 space-y-6">
+      <div className="relative z-10 px-6 space-y-6 animate-fade-in">
         {/* Profile Card */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+        <Card className="glass-card border-white/20 hover-lift">
           <CardHeader className="pb-4">
             <div className="flex items-center gap-4">
-              <Avatar className="h-16 w-16">
+              <Avatar className="h-16 w-16 neon-glow">
                 <AvatarFallback className="bg-primary text-primary-foreground text-xl font-bold">
                   {profile.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
@@ -104,6 +118,7 @@ const Profile = () => {
                   value={editedProfile.name}
                   onChange={(e) => setEditedProfile(prev => ({ ...prev, name: e.target.value }))}
                   disabled={!isEditing}
+                  className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
                 />
               </div>
               <div>
@@ -114,6 +129,7 @@ const Profile = () => {
                   value={editedProfile.email}
                   onChange={(e) => setEditedProfile(prev => ({ ...prev, email: e.target.value }))}
                   disabled={!isEditing}
+                  className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -124,6 +140,7 @@ const Profile = () => {
                     value={editedProfile.age}
                     onChange={(e) => setEditedProfile(prev => ({ ...prev, age: e.target.value }))}
                     disabled={!isEditing}
+                    className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
                   />
                 </div>
                 <div>
@@ -133,7 +150,7 @@ const Profile = () => {
                     value={editedProfile.gender}
                     onChange={(e) => setEditedProfile(prev => ({ ...prev, gender: e.target.value }))}
                     disabled={!isEditing}
-                    className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md border border-white/20 bg-white/5 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -148,17 +165,18 @@ const Profile = () => {
                   value={editedProfile.emergencyContact}
                   onChange={(e) => setEditedProfile(prev => ({ ...prev, emergencyContact: e.target.value }))}
                   disabled={!isEditing}
+                  className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
                 />
               </div>
             </div>
             
             {isEditing && (
               <div className="flex gap-2 pt-4">
-                <Button onClick={handleSave} className="flex-1">
+                <Button onClick={handleSave} className="flex-1 gradient-primary hover:opacity-90 text-white border-0 hover-lift">
                   <Save className="h-4 w-4 mr-2" />
                   Save Changes
                 </Button>
-                <Button variant="outline" onClick={handleCancel} className="flex-1">
+                <Button variant="outline" onClick={handleCancel} className="flex-1 glass-card hover-lift">
                   Cancel
                 </Button>
               </div>
@@ -167,7 +185,7 @@ const Profile = () => {
         </Card>
 
         {/* Medical History */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+        <Card className="glass-card border-white/20 hover-lift">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Heart className="h-5 w-5" />
@@ -176,7 +194,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {medicalHistory.map((item, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-background/50">
+              <div key={index} className="flex items-center justify-between p-3 rounded-lg glass-card hover-lift">
                 <div>
                   <h4 className="font-medium">{item.condition}</h4>
                   <p className="text-sm text-muted-foreground">Last check: {item.lastCheck}</p>
@@ -194,7 +212,7 @@ const Profile = () => {
         </Card>
 
         {/* Connected Devices */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+        <Card className="glass-card border-white/20 hover-lift">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Bluetooth className="h-5 w-5" />
@@ -203,7 +221,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent className="space-y-3">
             {connectedDevices.map((device, index) => (
-              <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-background/50">
+              <div key={index} className="flex items-center justify-between p-3 rounded-lg glass-card hover-lift">
                 <div>
                   <h4 className="font-medium">{device.name}</h4>
                   <p className="text-sm text-muted-foreground">Battery: {device.battery}</p>
@@ -220,7 +238,7 @@ const Profile = () => {
         </Card>
 
         {/* Settings */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+        <Card className="glass-card border-white/20 hover-lift">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Settings className="h-5 w-5" />
@@ -252,7 +270,7 @@ const Profile = () => {
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="text-sm border border-input rounded px-2 py-1 bg-background"
+                className="text-sm border border-white/20 rounded px-2 py-1 bg-white/5"
               >
                 <option value="en">English</option>
                 <option value="hi">हिंदी</option>
@@ -263,15 +281,15 @@ const Profile = () => {
 
         {/* Quick Actions */}
         <div className="space-y-3">
-          <Button variant="outline" className="w-full justify-start">
+          <Button variant="outline" className="w-full justify-start glass-card hover-lift">
             <Shield className="h-4 w-4 mr-3" />
             Privacy & Security
           </Button>
-          <Button variant="outline" className="w-full justify-start">
+          <Button variant="outline" className="w-full justify-start glass-card hover-lift">
             <HelpCircle className="h-4 w-4 mr-3" />
             Help & Support
           </Button>
-          <Button variant="destructive" className="w-full justify-start">
+          <Button variant="destructive" className="w-full justify-start hover-lift">
             <LogOut className="h-4 w-4 mr-3" />
             Sign Out
           </Button>

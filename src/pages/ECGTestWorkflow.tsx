@@ -56,7 +56,6 @@ const ECGTestWorkflow = () => {
       duration: "30 seconds",
       description: "Basic heart rhythm check",
       icon: Timer,
-      color: "bg-green-100 dark:bg-green-900/20 border-green-200 dark:border-green-800"
     },
     {
       id: "detailed",
@@ -64,7 +63,6 @@ const ECGTestWorkflow = () => {
       duration: "5 minutes",
       description: "Comprehensive analysis",
       icon: Activity,
-      color: "bg-blue-100 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
     },
     {
       id: "continuous",
@@ -72,7 +70,6 @@ const ECGTestWorkflow = () => {
       duration: "Custom",
       description: "Extended monitoring session",
       icon: Heart,
-      color: "bg-purple-100 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800"
     }
   ];
 
@@ -87,8 +84,8 @@ const ECGTestWorkflow = () => {
   };
 
   const renderPatientForm = () => (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+    <div className="space-y-6 animate-fade-in">
+      <Card className="glass-card border-white/20 hover-lift">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
@@ -103,6 +100,7 @@ const ECGTestWorkflow = () => {
                 id="name"
                 value={patientData.name}
                 onChange={(e) => setPatientData(prev => ({ ...prev, name: e.target.value }))}
+                className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
               />
             </div>
             <div>
@@ -112,6 +110,7 @@ const ECGTestWorkflow = () => {
                 type="number"
                 value={patientData.age}
                 onChange={(e) => setPatientData(prev => ({ ...prev, age: e.target.value }))}
+                className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
               />
             </div>
           </div>
@@ -123,7 +122,7 @@ const ECGTestWorkflow = () => {
                 id="gender"
                 value={patientData.gender}
                 onChange={(e) => setPatientData(prev => ({ ...prev, gender: e.target.value }))}
-                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                className="flex h-10 w-full rounded-md border border-white/20 bg-white/5 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -137,13 +136,14 @@ const ECGTestWorkflow = () => {
                 type="date"
                 value={patientData.dob}
                 onChange={(e) => setPatientData(prev => ({ ...prev, dob: e.target.value }))}
+                className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
               />
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+      <Card className="glass-card border-white/20 hover-lift">
         <CardHeader>
           <CardTitle>Medical History</CardTitle>
         </CardHeader>
@@ -182,6 +182,7 @@ const ECGTestWorkflow = () => {
               placeholder="Any other medical conditions or medications..."
               value={patientData.medicalHistory.notes}
               onChange={(e) => handleMedicalHistoryChange('notes', e.target.value)}
+              className="glass-card border-white/20 focus:border-primary/50 bg-white/5"
             />
           </div>
         </CardContent>
@@ -190,8 +191,8 @@ const ECGTestWorkflow = () => {
   );
 
   const renderTestSelection = () => (
-    <div className="space-y-6">
-      <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+    <div className="space-y-6 animate-fade-in">
+      <Card className="glass-card border-white/20 hover-lift">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Clock className="h-5 w-5" />
@@ -207,15 +208,15 @@ const ECGTestWorkflow = () => {
               <div
                 key={test.id}
                 onClick={() => setSelectedTestType(test.id)}
-                className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                className={`p-4 rounded-lg border-2 cursor-pointer transition-all hover-lift ${
                   isSelected 
-                    ? test.color + " border-current shadow-md" 
-                    : "border-border hover:border-primary/50 bg-background/50"
+                    ? "glass-cyber border-primary neon-glow" 
+                    : "glass-card border-white/20 hover:border-primary/50"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-full ${isSelected ? "bg-current/20" : "bg-muted"}`}>
-                    <Icon className={`h-5 w-5 ${isSelected ? "text-current" : "text-muted-foreground"}`} />
+                  <div className={`p-2 rounded-full ${isSelected ? "bg-primary/20 neon-glow" : "bg-muted"}`}>
+                    <Icon className={`h-5 w-5 ${isSelected ? "text-primary" : "text-muted-foreground"}`} />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
@@ -232,7 +233,7 @@ const ECGTestWorkflow = () => {
       </Card>
 
       {selectedTestType && (
-        <Card className="border-border/50 bg-gradient-primary/10">
+        <Card className="glass-cyber border-primary/30 neon-glow">
           <CardContent className="p-4">
             <div className="flex items-center gap-2 text-sm text-primary">
               <Activity className="h-4 w-4" />
@@ -247,14 +248,34 @@ const ECGTestWorkflow = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-subtle pb-20">
+    <div className="min-h-screen bg-main relative overflow-hidden pb-20">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-primary/20 blur-xl animate-pulse" />
+        <div className="absolute top-40 right-20 w-32 h-32 rounded-full bg-secondary/20 blur-2xl animate-pulse delay-1000" />
+        <div className="absolute bottom-20 left-20 w-24 h-24 rounded-full bg-accent/20 blur-xl animate-pulse delay-2000" />
+        
+        {/* Floating ECG Lines */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 1000 1000">
+            <path 
+              d="M0,500 Q250,400 500,500 T1000,500" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              fill="none"
+              className="text-primary ecg-pulse"
+            />
+          </svg>
+        </div>
+      </div>
+
       {/* Header */}
-      <div className="flex items-center gap-4 px-6 pt-8 pb-6">
-        <Button variant="ghost" size="icon" onClick={() => step > 1 ? setStep(step - 1) : navigate("/")}>
+      <div className="relative z-10 flex items-center gap-4 px-6 pt-8 pb-6">
+        <Button variant="ghost" size="icon" onClick={() => step > 1 ? setStep(step - 1) : navigate("/")} className="hover-lift">
           <ArrowLeft className="h-5 w-5" />
         </Button>
         <div className="flex-1">
-          <h1 className="text-2xl font-bold">ECG Test Setup</h1>
+          <h1 className="text-3xl font-bold cyber-text">ECG Test Setup</h1>
           <p className="text-muted-foreground text-sm">
             Step {step} of 2 - {step === 1 ? "Patient Information" : "Test Selection"}
           </p>
@@ -262,24 +283,24 @@ const ECGTestWorkflow = () => {
       </div>
 
       {/* Progress Bar */}
-      <div className="px-6 mb-6">
-        <div className="bg-muted rounded-full h-2">
+      <div className="relative z-10 px-6 mb-6">
+        <div className="glass-card rounded-full h-3 overflow-hidden">
           <div 
-            className="bg-primary rounded-full h-2 transition-all duration-300"
+            className="h-full gradient-primary rounded-full transition-all duration-500 neon-glow"
             style={{ width: `${(step / 2) * 100}%` }}
           />
         </div>
       </div>
 
-      <div className="px-6">
+      <div className="relative z-10 px-6">
         {step === 1 ? renderPatientForm() : renderTestSelection()}
       </div>
 
       {/* Navigation Buttons */}
-      <div className="fixed bottom-20 left-0 right-0 p-6 bg-background/80 backdrop-blur-sm border-t">
+      <div className="fixed bottom-20 left-0 right-0 p-6 glass-cyber border-t z-20">
         <div className="flex gap-3 max-w-md mx-auto">
           {step > 1 && (
-            <Button variant="outline" onClick={() => setStep(step - 1)} className="flex-1">
+            <Button variant="outline" onClick={() => setStep(step - 1)} className="flex-1 hover-lift glass-card">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Previous
             </Button>
@@ -293,7 +314,7 @@ const ECGTestWorkflow = () => {
                 navigate("/ecg");
               }
             }}
-            className="flex-1"
+            className="flex-1 gradient-primary hover:opacity-90 text-white border-0 hover-lift"
             disabled={step === 2 && !selectedTestType}
           >
             {step === 2 ? "Start Test" : "Next"}

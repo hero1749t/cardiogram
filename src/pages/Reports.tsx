@@ -104,16 +104,33 @@ const Reports = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-subtle pb-20">
+    <div className="min-h-screen bg-main relative overflow-hidden pb-20">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 left-10 w-20 h-20 rounded-full bg-primary/20 blur-xl animate-pulse" />
+        <div className="absolute top-40 right-20 w-32 h-32 rounded-full bg-secondary/20 blur-2xl animate-pulse delay-1000" />
+        <div className="absolute bottom-20 left-20 w-24 h-24 rounded-full bg-accent/20 blur-xl animate-pulse delay-2000" />
+        
+        {/* Floating Report Icons */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 border border-primary/30 rounded float-animation">
+            <FileText className="w-8 h-8 text-primary m-auto mt-4" />
+          </div>
+          <div className="absolute bottom-1/4 right-1/4 w-12 h-12 border border-secondary/30 rounded float-animation" style={{ animationDelay: '1s' }}>
+            <Activity className="w-6 h-6 text-secondary m-auto mt-3" />
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
-      <div className="px-6 pt-8 pb-6">
-        <h1 className="text-2xl font-bold mb-2">ECG Reports</h1>
+      <div className="relative z-10 px-6 pt-8 pb-6">
+        <h1 className="text-3xl font-bold cyber-text mb-2">ECG Reports</h1>
         <p className="text-muted-foreground text-sm">View and manage your test results</p>
       </div>
 
-      <div className="px-6 space-y-6">
+      <div className="relative z-10 px-6 space-y-6 animate-fade-in">
         {/* Search and Filter */}
-        <Card className="border-border/50 bg-card/80 backdrop-blur-sm">
+        <Card className="glass-card border-white/20 hover-lift">
           <CardContent className="p-4 space-y-3">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -121,7 +138,7 @@ const Reports = () => {
                 placeholder="Search reports..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10"
+                className="pl-10 glass-card border-white/20 focus:border-primary/50 bg-white/5"
               />
             </div>
             
@@ -130,6 +147,7 @@ const Reports = () => {
                 variant={filterType === "all" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterType("all")}
+                className="hover-lift"
               >
                 All
               </Button>
@@ -137,6 +155,7 @@ const Reports = () => {
                 variant={filterType === "Quick ECG" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterType("Quick ECG")}
+                className="hover-lift"
               >
                 Quick
               </Button>
@@ -144,6 +163,7 @@ const Reports = () => {
                 variant={filterType === "Detailed ECG" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterType("Detailed ECG")}
+                className="hover-lift"
               >
                 Detailed
               </Button>
@@ -151,6 +171,7 @@ const Reports = () => {
                 variant={filterType === "Continuous Monitor" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setFilterType("Continuous Monitor")}
+                className="hover-lift"
               >
                 Continuous
               </Button>
@@ -160,23 +181,23 @@ const Reports = () => {
 
         {/* Summary Stats */}
         <div className="grid grid-cols-3 gap-3">
-          <Card className="border-border/50 bg-card/80 text-center">
+          <Card className="glass-card border-white/20 text-center hover-lift">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-primary">{mockReports.length}</div>
+              <div className="text-2xl font-bold text-primary neon-glow">{mockReports.length}</div>
               <div className="text-xs text-muted-foreground">Total Tests</div>
             </CardContent>
           </Card>
-          <Card className="border-border/50 bg-card/80 text-center">
+          <Card className="glass-card border-white/20 text-center hover-lift">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-green-600">
+              <div className="text-2xl font-bold text-green-600 neon-glow">
                 {mockReports.filter(r => r.status === "Normal").length}
               </div>
               <div className="text-xs text-muted-foreground">Normal</div>
             </CardContent>
           </Card>
-          <Card className="border-border/50 bg-card/80 text-center">
+          <Card className="glass-card border-white/20 text-center hover-lift">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-orange-600">
+              <div className="text-2xl font-bold text-orange-600 neon-glow">
                 {mockReports.filter(r => r.status !== "Normal").length}
               </div>
               <div className="text-xs text-muted-foreground">Flagged</div>
@@ -189,7 +210,7 @@ const Reports = () => {
           {filteredReports.map((report) => (
             <Card 
               key={report.id} 
-              className="border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-md transition-shadow cursor-pointer"
+              className="glass-card border-white/20 hover:shadow-elegant transition-all cursor-pointer hover-lift"
               onClick={() => navigate(`/report/${report.id}`)}
             >
               <CardContent className="p-4">
@@ -214,7 +235,7 @@ const Reports = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-lg font-bold">{report.avgBpm}</div>
+                    <div className="text-lg font-bold neon-glow">{report.avgBpm}</div>
                     <div className="text-xs text-muted-foreground">BPM</div>
                   </div>
                 </div>
@@ -241,6 +262,7 @@ const Reports = () => {
                         e.stopPropagation();
                         // Handle download
                       }}
+                      className="hover-lift"
                     >
                       <Download className="h-4 w-4" />
                     </Button>
@@ -251,6 +273,7 @@ const Reports = () => {
                         e.stopPropagation();
                         // Handle share
                       }}
+                      className="hover-lift"
                     >
                       <Share className="h-4 w-4" />
                     </Button>
@@ -262,7 +285,7 @@ const Reports = () => {
         </div>
 
         {filteredReports.length === 0 && (
-          <Card className="border-border/50 bg-card/80">
+          <Card className="glass-card border-white/20">
             <CardContent className="p-8 text-center">
               <FileText className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
               <h3 className="font-semibold mb-2">No reports found</h3>
@@ -273,7 +296,7 @@ const Reports = () => {
                 }
               </p>
               {!searchTerm && filterType === "all" && (
-                <Button onClick={() => navigate("/ecg-test")}>
+                <Button onClick={() => navigate("/ecg-test")} className="gradient-primary hover:opacity-90 text-white border-0 hover-lift">
                   Start First Test
                 </Button>
               )}
