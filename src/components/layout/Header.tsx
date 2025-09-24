@@ -58,56 +58,87 @@ const Header = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full glass-cyber border-b border-white/10 hover-lift">
-      <div className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-3">
+    <header className="sticky top-0 z-50 w-full glass-cyber border-b border-white/10">
+      <div className="flex items-center justify-between px-4 py-2">
+        <div className="flex items-center gap-2">
           {showBackButton && (
             <Button 
               variant="ghost" 
               size="icon"
               onClick={() => navigate(-1)}
-              className="rounded-full glass-card hover:bg-white/20 backdrop-blur-sm hover-lift"
+              className="rounded-full glass-card hover:bg-white/20 backdrop-blur-sm hover-lift h-8 w-8"
             >
-              <ArrowLeft className="h-5 w-5 text-primary" />
+              <ArrowLeft className="h-4 w-4 text-primary" />
             </Button>
           )}
           
-          <div className="flex items-center gap-3">
-            <Avatar className="h-12 w-12 ring-2 ring-primary/30 hover-lift">
-              <AvatarFallback className="gradient-primary text-white font-semibold text-lg">
+          <div className="flex items-center gap-2">
+            <Avatar className="h-8 w-8 ring-1 ring-primary/30">
+              <AvatarFallback className="gradient-primary text-white font-semibold text-sm">
                 {getUserInitials()}
               </AvatarFallback>
             </Avatar>
             
-            <div>
-              <h2 className="font-semibold text-foreground text-lg">{getUserName()}</h2>
+            <div className="hidden sm:block">
+              <h2 className="font-medium text-foreground text-sm">{getUserName()}</h2>
               <p className="text-xs text-muted-foreground">
                 {currentDate} • {currentTime}
+              </p>
+            </div>
+            
+            {/* Mobile: Show only date/time */}
+            <div className="block sm:hidden">
+              <p className="text-xs text-muted-foreground">
+                {currentTime}
               </p>
             </div>
           </div>
         </div>
         
-        <div className="flex items-center gap-2">
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={() => navigate("/profile")}
-            className="rounded-full glass-card hover:bg-white/20 backdrop-blur-sm text-xs hover-lift"
-          >
-            <Settings className="h-4 w-4 mr-1 text-secondary" />
-            Settings
-          </Button>
+        <div className="flex items-center gap-1">
+          {/* Desktop buttons */}
+          <div className="hidden sm:flex items-center gap-2">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => navigate("/profile")}
+              className="rounded-full glass-card hover:bg-white/20 backdrop-blur-sm text-xs hover-lift h-8"
+            >
+              <Settings className="h-3 w-3 mr-1 text-secondary" />
+              Settings
+            </Button>
+            
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={handleSignOut}
+              className="rounded-full bg-destructive/20 hover:bg-destructive/30 backdrop-blur-sm text-xs text-destructive hover-lift h-8"
+            >
+              <LogOut className="h-3 w-3 mr-1" />
+              Sign Out
+            </Button>
+          </div>
           
-          <Button 
-            variant="ghost" 
-            size="sm"
-            onClick={handleSignOut}
-            className="rounded-full bg-destructive/20 hover:bg-destructive/30 backdrop-blur-sm text-xs text-destructive hover-lift"
-          >
-            <LogOut className="h-4 w-4 mr-1" />
-            Sign Out
-          </Button>
+          {/* Mobile: Icon-only buttons */}
+          <div className="flex sm:hidden items-center gap-1">
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={() => navigate("/profile")}
+              className="rounded-full glass-card hover:bg-white/20 backdrop-blur-sm hover-lift h-8 w-8"
+            >
+              <Settings className="h-4 w-4 text-secondary" />
+            </Button>
+            
+            <Button 
+              variant="ghost" 
+              size="icon"
+              onClick={handleSignOut}
+              className="rounded-full bg-destructive/20 hover:bg-destructive/30 backdrop-blur-sm text-destructive hover-lift h-8 w-8"
+            >
+              <LogOut className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </header>
