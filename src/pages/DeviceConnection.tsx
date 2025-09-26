@@ -67,24 +67,37 @@ const DeviceConnection = () => {
 
   // Check if Web Bluetooth is supported
   useEffect(() => {
+    console.log('Checking Web Bluetooth support...');
+    console.log('navigator.bluetooth exists:', 'bluetooth' in navigator);
+    console.log('isSecureContext:', window.isSecureContext);
+    console.log('location.protocol:', window.location.protocol);
+    
     if ('bluetooth' in navigator) {
+      console.log('Web Bluetooth is supported');
       setIsBluetoothEnabled(true);
     } else {
+      console.log('Web Bluetooth is NOT supported');
       setBluetoothError('Web Bluetooth is not supported in this browser');
     }
   }, []);
 
   const startScanning = async () => {
+    console.log('startScanning called');
+    console.log('navigator.bluetooth:', navigator.bluetooth);
+    
     if (!('bluetooth' in navigator)) {
+      console.log('Bluetooth not available');
       setBluetoothError('Web Bluetooth is not supported in this browser');
       return;
     }
 
+    console.log('Starting Bluetooth scan...');
     setIsScanning(true);
     setDevices([]);
     setBluetoothError(null);
 
     try {
+      console.log('Requesting Bluetooth device...');
       // Request Bluetooth device with optional services for heart rate, health devices, etc.
       const device = await navigator.bluetooth.requestDevice({
         acceptAllDevices: true,
@@ -99,6 +112,8 @@ const DeviceConnection = () => {
         ]
       });
 
+      console.log('Device selected:', device);
+
       if (device) {
         const newDevice: ECGDevice = {
           id: device.id,
@@ -107,18 +122,22 @@ const DeviceConnection = () => {
           isConnected: false
         };
 
+        console.log('Adding device to list:', newDevice);
         setDevices([newDevice]);
       }
     } catch (error: any) {
+      console.error('Bluetooth scanning error:', error);
       if (error.name === 'NotFoundError') {
-        setBluetoothError('No device selected');
+        setBluetoothError('No device selected or scan cancelled');
       } else if (error.name === 'SecurityError') {
         setBluetoothError('Bluetooth access denied. Please allow in browser settings.');
+      } else if (error.name === 'NotSupportedError') {
+        setBluetoothError('Web Bluetooth not supported in this context (try opening in new tab)');
       } else {
         setBluetoothError(`Bluetooth error: ${error.message}`);
       }
-      console.error('Bluetooth scanning failed:', error);
     } finally {
+      console.log('Scan completed');
       setIsScanning(false);
     }
   };
